@@ -1,4 +1,6 @@
-class Phone {
+package main.java.com.contactrecords.model;
+
+public class Phone {
     private String number;
     private PhoneCategory category;
 

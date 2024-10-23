@@ -1,3 +1,5 @@
+package main.java.com.contactrecords.model;
+
 public class PhoneCategory {
     private String name;
 

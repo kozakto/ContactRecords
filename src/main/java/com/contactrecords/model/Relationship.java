@@ -1,3 +1,5 @@
+package main.java.com.contactrecords.model;
+
 import java.util.List;
 
 public class Relationship {

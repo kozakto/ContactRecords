@@ -1,3 +1,9 @@
+package main.java.com.contactrecords.service;
+
+import main.java.com.contactrecords.model.Contact;
+import main.java.com.contactrecords.model.LegalEntity;
+import main.java.com.contactrecords.model.Person;
+
 import java.util.ArrayList;
 import java.util.List;
 

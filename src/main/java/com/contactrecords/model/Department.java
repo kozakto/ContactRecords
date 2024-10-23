@@ -1,3 +1,5 @@
+package main.java.com.contactrecords.model;
+
 public class Department {
     private String name;
 

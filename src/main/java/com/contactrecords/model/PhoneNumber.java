@@ -1,5 +1,7 @@
+package main.java.com.contactrecords.model;
+
 public class PhoneNumber {
-    private String type;  // mobil, pevná linka
+    private String type;
     private String number;
 
     public PhoneNumber(String type, String number) {

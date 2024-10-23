@@ -1,4 +1,6 @@
-abstract class Contact {
+package main.java.com.contactrecords.model;
+
+abstract public class Contact {
     public String address;
 
     public String getAddress() {

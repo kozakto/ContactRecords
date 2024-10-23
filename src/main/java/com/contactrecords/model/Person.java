@@ -1,13 +1,27 @@
+package main.java.com.contactrecords.model;
+
+import java.util.Scanner;
+
 public class Person extends Contact {
     private String firstName;
     private String lastName;
     private String title;
 
-    public Person(String title, String firstName, String lastName, String address) {
-        this.title = title;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
+    public Person() {
+    }
+
+    public void personInfo(Scanner scanner) {
+        System.out.println("Insert Title of the Person: ");
+        this.title = scanner.nextLine();
+
+        System.out.println("Insert First Name of the Person: ");
+        this.firstName = scanner.nextLine();
+
+        System.out.println("Insert Last Name of the Person: ");
+        this.lastName = scanner.nextLine();
+
+        System.out.println("Insert Address of the Person: ");
+        this.address = scanner.nextLine();
     }
 
     public String getFirstName() {
