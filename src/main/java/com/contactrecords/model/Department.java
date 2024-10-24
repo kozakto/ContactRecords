@@ -1,4 +1,4 @@
-package main.java.com.contactrecords.model;
+package com.contactrecords.model;
 
 public class Department {
     private String name;
@@ -17,6 +17,6 @@ public class Department {
 
     @Override
     public String toString() {
-        return  name;
+        return name;
     }
 }

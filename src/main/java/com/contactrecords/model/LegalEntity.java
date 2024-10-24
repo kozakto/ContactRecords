@@ -1,4 +1,4 @@
-package main.java.com.contactrecords.model;
+package com.contactrecords.model;
 
 import java.util.Scanner;
 
@@ -9,8 +9,8 @@ public class LegalEntity extends Contact {
     }
 
     public LegalEntity(String name, String address) {
+        super(address);
         this.name = name;
-        this.address = address;
     }
 
     public void legalEntityInfo(Scanner scanner) {
@@ -18,7 +18,7 @@ public class LegalEntity extends Contact {
         this.name = scanner.nextLine();
 
         System.out.println("Insert Address of the Company: ");
-        this.address = scanner.nextLine();
+        this.contactAddress = scanner.nextLine();
     }
 
     public String getName() {
@@ -31,6 +31,6 @@ public class LegalEntity extends Contact {
 
     @Override
     public String toString() {
-        return "company: " + name + ", Address: " + address;
+        return "company: " + name + ", Address: " + contactAddress;
     }
 }

@@ -1,4 +1,4 @@
-package main.java.com.contactrecords.model;
+package com.contactrecords.model;
 
 import java.util.List;
 

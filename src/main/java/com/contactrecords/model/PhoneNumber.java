@@ -1,4 +1,4 @@
-package main.java.com.contactrecords.model;
+package com.contactrecords.model;
 
 public class PhoneNumber {
     private String type;
