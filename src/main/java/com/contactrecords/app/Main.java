@@ -20,15 +20,13 @@ public class Main {
         m.marshal(wrapperPerson, System.out);
         m.marshal(wrapperPerson, new File("people.xml"));
     }
-    public static void main(String[] args) throws JAXBException {
 
+    public static void main(String[] args) throws JAXBException {
 
         Scanner scanner = new Scanner(System.in);
         ContactManagement cm = new ContactManagement();
         WrapperPerson wrapperPerson = new WrapperPerson();
         List<Person> personList = new ArrayList<>();
-
-
         while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
             String userInput = scanner.nextLine();
@@ -39,43 +37,27 @@ public class Main {
 
             Person newPerson = new Person();
             newPerson.createPerson(scanner);
-            LegalEntity personCompany = new LegalEntity();
-            personCompany.legalEntityInfo(scanner);
 
-            List<Department> departments = new ArrayList<>();
-            while (true) {
-                System.out.println("Insert Name of the position in company (or 0 to stop): ");
-                String companyPosition = scanner.nextLine();
-
-                if (companyPosition.equals("0")) {
-                    break;
-                }
-
-                Department unit = new Department(companyPosition);
-                departments.add(unit);
-            }
-
-            PhoneCategory phoneCat = new PhoneCategory("Vodafone");
-            Phone phone = new Phone("732 732 732", phoneCat);
-
-            Relationship relationship = new Relationship(newPerson, personCompany, departments, phone, phoneCat);
             cm.addContact(newPerson);
             personList.add(newPerson);
-            System.out.println(relationship);
-
         }
 
-        System.out.println("Do you want to export list of People to xml? (1 - yes/ 0 - no)");
-        String export = scanner.nextLine();
+        System.out.println("Do you want to export list of People to XML? (1 - yes / 0 - no)");
+        String export = scanner.nextLine().trim();
         if (export.equals("1")) {
             wrapperPerson.setPersonList(personList);
             convertObjectToXML(wrapperPerson);
-        }else{
-            cm.getContacts();
+        } else {
+            System.out.println("Do you want to find any contact? (1 - yes / 0 - no)");
+            String searchApprove = scanner.nextLine().trim();
+            if (searchApprove.equals("1")) {
+                System.out.println("Insert value.");
+                String searchValue = scanner.nextLine().trim();
+                cm.searchByPrefix(searchValue);
+            } else {
+                cm.getContacts();
+            }
         }
-
-
-
     }
 }
 

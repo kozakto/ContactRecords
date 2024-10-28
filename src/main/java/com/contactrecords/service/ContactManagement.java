@@ -1,7 +1,6 @@
 package com.contactrecords.service;
 
 import com.contactrecords.model.Contact;
-import com.contactrecords.model.LegalEntity;
 import com.contactrecords.model.Person;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class ContactManagement {
     }
 
 
-    public void searchByPrefix(String prefix) {
+    /*public void searchByPrefix(String prefix) {
         for (Contact contact : contacts) {
             if (contact instanceof Person) {
                 Person person = (Person) contact;
@@ -54,11 +53,23 @@ public class ContactManagement {
                 }
             } else if (contact instanceof LegalEntity) {
                 LegalEntity entity = (LegalEntity) contact;
-                if (entity.getName().startsWith(prefix)) {
+                if (entity.getLegalEntityName().startsWith(prefix)) {
                     System.out.println(entity);
                 }
             }
         }
+    }*/
+
+    public void searchByPrefix(String prefix) {
+        for (Contact contact : contacts) {
+            if (contact instanceof Person) {
+                Person person = (Person) contact;
+                if (person.getFirstName().startsWith(prefix) || person.getLastName().startsWith(prefix)) {
+                    System.out.println(person);
+                }
+            }
+        }
     }
+
 
 }

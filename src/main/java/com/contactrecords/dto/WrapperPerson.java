@@ -16,10 +16,7 @@ public class WrapperPerson {
     public List<Person> getPersonLists() {
         return personList;
     }
-
     public void setPersonList(List<Person> personList) {
         this.personList = personList;
     }
-
-
 }

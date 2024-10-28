@@ -4,20 +4,21 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 abstract public class Contact {
     @XmlTransient
-    public String contactAddress;
+    public String address;
 
     public Contact() {
     }
 
     public Contact(String address) {
-        this.contactAddress = address;
+        this.address = address;
     }
 
+    @XmlTransient
     public String getAddress() {
-        return contactAddress;
+        return address;
     }
 
     public void setAddress(String address) {
-        this.contactAddress = address;
+        this.address = address;
     }
 }

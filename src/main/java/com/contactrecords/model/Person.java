@@ -7,11 +7,12 @@ import jakarta.xml.bind.annotation.XmlType;
 import java.util.Scanner;
 
 @XmlRootElement(name = "Person")
-@XmlType(propOrder = {"title", "firstName", "lastName", "contactAddress"})
+@XmlType(propOrder = {"firstName", "lastName", "address", "phoneNumber"})
 public class Person extends Contact {
     private String firstName;
     private String lastName;
-    private String title;
+    private String phoneNumber;
+    //private String title;
 
     public Person() {
     }
@@ -20,11 +21,9 @@ public class Person extends Contact {
         super(address);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.title = title;
+        //this.title = title;
     }
         public void createPerson(Scanner scanner) {
-            System.out.println("Insert Title of the Person: ");
-            this.title = scanner.nextLine();
 
             System.out.println("Insert First Name of the Person: ");
             this.firstName = scanner.nextLine();
@@ -33,7 +32,10 @@ public class Person extends Contact {
             this.lastName = scanner.nextLine();
 
             System.out.println("Insert Address of the Person: ");
-            contactAddress = scanner.nextLine();
+            address = scanner.nextLine();
+
+            System.out.println("Insert Phone number of the Person: ");
+            this.phoneNumber = scanner.nextLine();
         }
 
     public String getFirstName() {
@@ -51,25 +53,26 @@ public class Person extends Contact {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
     @XmlElement(name = "address")
-    public String getContactAddress() {
-        return contactAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setContactAddress(String contactAddress) {
-        this.contactAddress = contactAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
+    @XmlElement(name = "phoneNumber")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 
     @Override
     public String toString() {
-        return title + " " + firstName + " " + lastName + ", Address: " + contactAddress;
+        return "First name: " + getFirstName() + ", Last name: " + getLastName() + ", Address: " + getAddress() + ", Phone number: " + getPhoneNumber();
     }
 }

@@ -1,36 +1,39 @@
 package com.contactrecords.model;
 
+import jakarta.xml.bind.annotation.XmlTransient;
+
 import java.util.Scanner;
 
 public class LegalEntity extends Contact {
-    private String name;
+    private String legalEntityName;
 
     public LegalEntity() {
     }
 
-    public LegalEntity(String name, String address) {
+    public LegalEntity(String legalEntityName, String address) {
         super(address);
-        this.name = name;
+        this.legalEntityName = legalEntityName;
     }
 
     public void legalEntityInfo(Scanner scanner) {
         System.out.println("Insert Name of the Company: ");
-        this.name = scanner.nextLine();
+        this.legalEntityName = scanner.nextLine();
 
         System.out.println("Insert Address of the Company: ");
-        this.contactAddress = scanner.nextLine();
+        this.address = scanner.nextLine();
     }
 
-    public String getName() {
-        return name;
+    @XmlTransient
+    public String getLegalEntityName() {
+        return legalEntityName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLegalEntityName(String legalEntityName) {
+        this.legalEntityName = legalEntityName;
     }
 
     @Override
     public String toString() {
-        return "company: " + name + ", Address: " + contactAddress;
+        return "company: " + legalEntityName + ", Address: " + address;
     }
 }

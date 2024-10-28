@@ -17,6 +17,10 @@ public class Relationship {
         this.phoneCategory = phoneCategory;
     }
 
+    public Relationship(Person person) {
+        this.person = person;
+    }
+
     public List<Department> getUnits() {
         return units;
     }
@@ -27,6 +31,6 @@ public class Relationship {
 
     @Override
     public String toString() {
-        return person + " working in " + legalEntity + " as " + units + " with  " + phone + " " + phoneCategory;
+        return person + "";
     }
 }
