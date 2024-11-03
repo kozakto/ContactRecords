@@ -8,6 +8,8 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class XMLConverterService {
 
@@ -19,31 +21,26 @@ public class XMLConverterService {
         m.marshal(wrapperPerson, new File(fileName));
     }
 
-    public void convertObjectFromXML(String fileName) throws JAXBException {
+    public List<Person> convertObjectFromXML(String fileName) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(WrapperPerson.class);
         Unmarshaller um = jaxbContext.createUnmarshaller();
-        WrapperPerson wp = (WrapperPerson) um.unmarshal(new File(fileName));
 
-        if (wp != null && wp.getPersonLists() != null) {
-            for (Person p : wp.getPersonLists()) {
-                System.out.println("Person Info");
-                System.out.println("First name: " + p.getFirstName());
-                System.out.println("Last name: " + p.getLastName());
-                System.out.println("Address: " + p.getAddress());
-                System.out.println("Phone number: " + p.getPhoneNumber());
-            }
+        File xmlFile = new File(fileName);
+        if (xmlFile.exists()) {
+            WrapperPerson wrapperPerson = (WrapperPerson) um.unmarshal(xmlFile);
+            return wrapperPerson.getPersonLists();
         } else {
-            System.out.println("No person data found.");
+            return new ArrayList<>();
         }
-
 
     }
 
-    public WrapperPerson loadPersonsFromXML() throws JAXBException {
+    //Loads existing person records from the specified XML file.
+    public WrapperPerson loadPersonsFromXML(String fileName) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(WrapperPerson.class);
         Unmarshaller um = jaxbContext.createUnmarshaller();
 
-        File xmlFile = new File("people.xml");
+        File xmlFile = new File(fileName);
         if (xmlFile.exists()) {
             return (WrapperPerson) um.unmarshal(xmlFile);
         } else {

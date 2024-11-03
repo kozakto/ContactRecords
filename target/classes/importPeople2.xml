@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entities>
+    <personList>
+        <person>
+            <firstName>Milos</firstName>
+            <lastName>Zeman</lastName>
+            <address>Vysocina</address>
+            <phoneNumber>666</phoneNumber>
+        </person>
+    </personList>
+</entities>

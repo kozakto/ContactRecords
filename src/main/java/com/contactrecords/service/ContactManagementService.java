@@ -16,7 +16,7 @@ public class ContactManagementService {
     }
 
 
-    public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException{
+    public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException {
 
         for (Contact contact : wrapperPerson.getPersonLists()) {
             System.out.println(contact + " ");
@@ -47,7 +47,7 @@ public class ContactManagementService {
         return false;
     }
 
-    public void searchByPrefix(String prefix, WrapperPerson wrapperPerson)throws JAXBException {
+    public void searchByPrefix(String prefix, WrapperPerson wrapperPerson) throws JAXBException {
 
         for (Contact contact : wrapperPerson.getPersonLists()) {
             if (contact instanceof Person) {
