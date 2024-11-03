@@ -37,7 +37,7 @@ public class Person extends Contact {
             System.out.println("Insert Phone number of the Person: ");
             this.phoneNumber = scanner.nextLine();
         }
-
+    @XmlElement(name = "firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -45,7 +45,7 @@ public class Person extends Contact {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @XmlElement(name = "lastName")
     public String getLastName() {
         return lastName;
     }

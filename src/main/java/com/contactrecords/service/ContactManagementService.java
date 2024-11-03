@@ -1,23 +1,27 @@
 package com.contactrecords.service;
 
+import com.contactrecords.dto.WrapperPerson;
 import com.contactrecords.model.Contact;
 import com.contactrecords.model.Person;
+import jakarta.xml.bind.JAXBException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactManagement {
+public class ContactManagementService {
     private List<Contact> contacts;
 
-    public ContactManagement() {
+    public ContactManagementService() {
         this.contacts = new ArrayList<>();
     }
 
 
-    public List<Contact> getContacts() {
-        for (Contact c : contacts) {
-            System.out.println(c);
+    public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException{
+
+        for (Contact contact : wrapperPerson.getPersonLists()) {
+            System.out.println(contact + " ");
         }
+
         return contacts;
     }
 
@@ -43,25 +47,9 @@ public class ContactManagement {
         return false;
     }
 
+    public void searchByPrefix(String prefix, WrapperPerson wrapperPerson)throws JAXBException {
 
-    /*public void searchByPrefix(String prefix) {
-        for (Contact contact : contacts) {
-            if (contact instanceof Person) {
-                Person person = (Person) contact;
-                if (person.getLastName().startsWith(prefix)) {
-                    System.out.println(person);
-                }
-            } else if (contact instanceof LegalEntity) {
-                LegalEntity entity = (LegalEntity) contact;
-                if (entity.getLegalEntityName().startsWith(prefix)) {
-                    System.out.println(entity);
-                }
-            }
-        }
-    }*/
-
-    public void searchByPrefix(String prefix) {
-        for (Contact contact : contacts) {
+        for (Contact contact : wrapperPerson.getPersonLists()) {
             if (contact instanceof Person) {
                 Person person = (Person) contact;
                 if (person.getFirstName().startsWith(prefix) || person.getLastName().startsWith(prefix)) {

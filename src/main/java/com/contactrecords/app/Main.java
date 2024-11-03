@@ -1,37 +1,35 @@
 package com.contactrecords.app;
 
-import com.contactrecords.model.*;
-import com.contactrecords.service.ContactManagement;
 import com.contactrecords.dto.WrapperPerson;
-import jakarta.xml.bind.JAXBContext;
+import com.contactrecords.model.Person;
+import com.contactrecords.service.ContactManagementService;
+import com.contactrecords.service.XMLConverterService;
 import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
-    private static void convertObjectToXML(WrapperPerson wrapperPerson) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(WrapperPerson.class);
-        Marshaller m = jaxbContext.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        m.marshal(wrapperPerson, System.out);
-        m.marshal(wrapperPerson, new File("people.xml"));
-    }
 
+
+public class Main {
+    public static final String VALUE_TRUE = "1";
+    public static final String VALUE_FALSE = "0";
+
+    private static final String XML_FILE_NAME = "people.xml";
     public static void main(String[] args) throws JAXBException {
 
         Scanner scanner = new Scanner(System.in);
-        ContactManagement cm = new ContactManagement();
-        WrapperPerson wrapperPerson = new WrapperPerson();
-        List<Person> personList = new ArrayList<>();
+        XMLConverterService xmlConvert = new XMLConverterService();
+
+        ContactManagementService cm = new ContactManagementService();
+        WrapperPerson wrapperPerson = xmlConvert.loadPersonsFromXML();
+        List<Person> personList = wrapperPerson.getPersonLists();
+
         while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
             String userInput = scanner.nextLine();
 
-            if (userInput.equals("0")) {
+            if (userInput.equals(VALUE_FALSE)) {
                 break;
             }
 
@@ -44,18 +42,24 @@ public class Main {
 
         System.out.println("Do you want to export list of People to XML? (1 - yes / 0 - no)");
         String export = scanner.nextLine().trim();
-        if (export.equals("1")) {
+        if (export.equals(VALUE_TRUE)) {
             wrapperPerson.setPersonList(personList);
-            convertObjectToXML(wrapperPerson);
+            //xmlConvert.loadPersonsFromXML();
+            xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
+
+
         } else {
             System.out.println("Do you want to find any contact? (1 - yes / 0 - no)");
             String searchApprove = scanner.nextLine().trim();
-            if (searchApprove.equals("1")) {
+
+
+            if (searchApprove.equals(VALUE_TRUE)) {
                 System.out.println("Insert value.");
                 String searchValue = scanner.nextLine().trim();
-                cm.searchByPrefix(searchValue);
+                cm.searchByPrefix(searchValue, wrapperPerson);
+                //cm.getContacts(wrapperPerson);
             } else {
-                cm.getContacts();
+                cm.getContacts(wrapperPerson);
             }
         }
     }

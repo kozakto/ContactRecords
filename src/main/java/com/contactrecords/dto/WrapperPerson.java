@@ -5,13 +5,16 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "entities")
 public class WrapperPerson {
+    private List<Person> personList = new ArrayList<>();
     @XmlElementWrapper(name = "personList")
     @XmlElement(name = "person")
-    private List<Person> personList;
+
+
 
     public List<Person> getPersonLists() {
         return personList;
@@ -19,4 +22,7 @@ public class WrapperPerson {
     public void setPersonList(List<Person> personList) {
         this.personList = personList;
     }
+
+
+
 }
