@@ -2,19 +2,21 @@ package com.contactrecords.app;
 
 import com.contactrecords.dto.WrapperPerson;
 import com.contactrecords.model.Person;
+import com.contactrecords.service.CSVImportService;
 import com.contactrecords.service.ContactManagementService;
 import com.contactrecords.service.XMLConverterService;
 import jakarta.xml.bind.JAXBException;
 
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
-
 
 
 public class Main {
     public static final String VALUE_TRUE = "1";
     public static final String VALUE_FALSE = "0";
     private static final String XML_FILE_NAME = "people.xml";
+
     public static void main(String[] args) throws JAXBException {
 
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +26,21 @@ public class Main {
         WrapperPerson wrapperPerson = xmlConvert.loadPersonsFromXML(XML_FILE_NAME);
         List<Person> personList = wrapperPerson.getPersonLists();
 
-        while (true) {
+        CSVImportService cis = new CSVImportService();
+        String directoryPath = "src/main/resources";
+        File directory = new File(directoryPath);
+
+        File[] files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                cis.csvImport(file);
+            }
+        } else {
+            System.out.println("No files in directory.");
+        }
+
+        /*while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
             String userInput = scanner.nextLine();
 
@@ -78,7 +94,7 @@ public class Main {
             xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
         }else {
             System.out.println("Wrong file path or no data");
-        }
+        }*/
     }
 }
 
