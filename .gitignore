@@ -16,6 +16,7 @@
 *.iws
 *.iml
 *.ipr
+*.class
 /out/
 
 ### NetBeans ###
@@ -25,6 +26,7 @@
 /nbdist/
 /.nb-gradle/
 /.idea/
+.idea/
 includeBuild
 logs/
 bin/
