@@ -28,11 +28,10 @@ public class XMLConverterService {
         File xmlFile = new File(fileName);
         if (xmlFile.exists()) {
             WrapperPerson wrapperPerson = (WrapperPerson) um.unmarshal(xmlFile);
-            return wrapperPerson.getPersonLists();
+            return wrapperPerson.getPersonList();
         } else {
             return new ArrayList<>();
         }
-
     }
 
     //Loads existing person records from the specified XML file.

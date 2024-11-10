@@ -8,6 +8,7 @@ import com.contactrecords.service.XMLConverterService;
 import jakarta.xml.bind.JAXBException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,28 +18,45 @@ public class Main {
     public static final String VALUE_FALSE = "0";
     private static final String XML_FILE_NAME = "people.xml";
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
 
         Scanner scanner = new Scanner(System.in);
         XMLConverterService xmlConvert = new XMLConverterService();
 
-        ContactManagementService cm = new ContactManagementService();
+        ContactManagementService cms = new ContactManagementService();
         WrapperPerson wrapperPerson = xmlConvert.loadPersonsFromXML(XML_FILE_NAME);
-        List<Person> personList = wrapperPerson.getPersonLists();
+        List<Person> personList = wrapperPerson.getPersonList();
 
         CSVImportService cis = new CSVImportService();
         String directoryPath = "src/main/resources";
         File directory = new File(directoryPath);
-
         File[] files = directory.listFiles();
 
-        if (files != null) {
-            for (File file : files) {
-                cis.csvImport(file);
+        try {
+
+            if (files != null) {
+                for (File file : files) {
+                    if (file.getName().endsWith(".csv")) {
+                        List<Person> peopleFromCsv =cis.csvImport(file.getPath());
+
+                        for(Person person : peopleFromCsv){
+                            if(!cms.isDuplicate(person)){
+                                personList.add(person);
+                                cms.addContact(person);
+                            }
+                        }
+                    }
+                }
+                wrapperPerson.setPersonList(personList);
+                xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
+            } else {
+                System.out.println("No files in directory.");
             }
-        } else {
-            System.out.println("No files in directory.");
+
+        } catch (JAXBException | IOException e) {
+            e.getMessage();
         }
+
 
         /*while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
@@ -86,13 +104,13 @@ public class Main {
 
             List<Person> personsFromXML = xmlConvert.convertObjectFromXML(userPath);
 
-            for(Person person : personsFromXML){
+            for (Person person : personsFromXML) {
                 personList.add(person);
             }
 
             wrapperPerson.setPersonList(personList);
             xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
-        }else {
+        } else {
             System.out.println("Wrong file path or no data");
         }*/
     }

@@ -1,37 +1,51 @@
 package com.contactrecords.service;
 
+import com.contactrecords.model.Person;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSVImportService {
-    public void csvImport(File file) {
-        BufferedReader reader = null;
-        String line = "";
+    private static final ContactManagementService cms = new ContactManagementService();
 
-        try {
-            reader = new BufferedReader(new FileReader(file));
+    public List<Person> csvImport(String fileName) throws IOException {
+        List<Person> people = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
             while ((line = reader.readLine()) != null) {
+                Person person = new Person();
+                List<String> row = parseLine(line);
 
-                String[] row = line.split(",");
+                if (row.size() == 4) {
+                    person.setFirstName(row.get(0));
+                    person.setLastName(row.get(1));
+                    person.setAddress(row.get(2));
+                    person.setPhoneNumber(row.get(3));
+                    people.add(person);
 
-                for (String i : row) {
-                    System.out.printf(i + " ");
+                } else {
+                    System.out.println("Wrong values in file");
                 }
-                System.out.println();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        }
+        return people;
+    }
+
+    protected List<String> parseLine(String line) {
+        List<String> result = new ArrayList<>();
+        if (line != null) {
+            for (String s : line.split(",")) {
+                String trimmed = s.trim();
+                result.add(trimmed);
             }
         }
-
-
+        return result;
     }
 }
 

@@ -18,10 +18,9 @@ public class ContactManagementService {
 
     public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException {
 
-        for (Contact contact : wrapperPerson.getPersonLists()) {
+        for (Contact contact : wrapperPerson.getPersonList()) {
             System.out.println(contact + " ");
         }
-
         return contacts;
     }
 
@@ -34,7 +33,7 @@ public class ContactManagementService {
         }
     }
 
-    private boolean isDuplicate(Contact newContact) {
+    public boolean isDuplicate(Contact newContact) {
         for (Contact existingContact : contacts) {
             if (newContact instanceof Person && existingContact instanceof Person) {
                 Person newPerson = (Person) newContact;
@@ -49,7 +48,7 @@ public class ContactManagementService {
 
     public void searchByPrefix(String prefix, WrapperPerson wrapperPerson) throws JAXBException {
 
-        for (Contact contact : wrapperPerson.getPersonLists()) {
+        for (Contact contact : wrapperPerson.getPersonList()) {
             if (contact instanceof Person) {
                 Person person = (Person) contact;
                 if (person.getFirstName().startsWith(prefix) || person.getLastName().startsWith(prefix)) {
