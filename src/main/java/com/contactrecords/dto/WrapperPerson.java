@@ -13,9 +13,8 @@ public class WrapperPerson {
     private List<Person> personList = new ArrayList<>();
 
     @XmlElementWrapper(name = "personList")
+
     @XmlElement(name = "person")
-
-
     public List<Person> getPersonList() {
         return personList;
     }

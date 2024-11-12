@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVImportService {
-    private static final ContactManagementService cms = new ContactManagementService();
+    //private static final ContactManagementService cms = new ContactManagementService();
 
     public List<Person> csvImport(String fileName) throws IOException {
         List<Person> people = new ArrayList<>();

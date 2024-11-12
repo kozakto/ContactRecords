@@ -9,17 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactManagementService {
-    private List<Contact> contacts;
+    private List<Contact> contacts = new ArrayList<>();
 
-    public ContactManagementService() {
-        this.contacts = new ArrayList<>();
+    public void initializeContacts(WrapperPerson wrapperPerson) {
+        if (wrapperPerson != null && wrapperPerson.getPersonList() != null) {
+            contacts.addAll(wrapperPerson.getPersonList());
+        }
     }
 
 
     public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException {
-
+        List<Contact> contacts = new ArrayList<>();
         for (Contact contact : wrapperPerson.getPersonList()) {
-            System.out.println(contact + " ");
+            contacts.add(contact);
         }
         return contacts;
     }
@@ -38,9 +40,11 @@ public class ContactManagementService {
             if (newContact instanceof Person && existingContact instanceof Person) {
                 Person newPerson = (Person) newContact;
                 Person existingPerson = (Person) existingContact;
-                return existingPerson.getFirstName().equals(newPerson.getFirstName()) &&
+                if (existingPerson.getFirstName().equals(newPerson.getFirstName()) &&
                         existingPerson.getLastName().equals(newPerson.getLastName()) &&
-                        existingPerson.getAddress().equals(newPerson.getAddress());
+                        existingPerson.getAddress().equals(newPerson.getAddress())) {
+                    return true;
+                }
             }
         }
         return false;

@@ -26,39 +26,15 @@ public class Main {
         ContactManagementService cms = new ContactManagementService();
         WrapperPerson wrapperPerson = xmlConvert.loadPersonsFromXML(XML_FILE_NAME);
         List<Person> personList = wrapperPerson.getPersonList();
+        cms.initializeContacts(wrapperPerson);
 
         CSVImportService cis = new CSVImportService();
         String directoryPath = "src/main/resources";
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
 
-        try {
 
-            if (files != null) {
-                for (File file : files) {
-                    if (file.getName().endsWith(".csv")) {
-                        List<Person> peopleFromCsv =cis.csvImport(file.getPath());
-
-                        for(Person person : peopleFromCsv){
-                            if(!cms.isDuplicate(person)){
-                                personList.add(person);
-                                cms.addContact(person);
-                            }
-                        }
-                    }
-                }
-                wrapperPerson.setPersonList(personList);
-                xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
-            } else {
-                System.out.println("No files in directory.");
-            }
-
-        } catch (JAXBException | IOException e) {
-            e.getMessage();
-        }
-
-
-        /*while (true) {
+        while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
             String userInput = scanner.nextLine();
 
@@ -69,7 +45,7 @@ public class Main {
             Person newPerson = new Person();
             newPerson.createPerson(scanner);
 
-            cm.addContact(newPerson);
+            cms.addContact(newPerson);
             personList.add(newPerson);
         }
 
@@ -87,15 +63,48 @@ public class Main {
             if (searchApprove.equals(VALUE_TRUE)) {
                 System.out.println("Insert value.");
                 String searchValue = scanner.nextLine().trim();
-                cm.searchByPrefix(searchValue, wrapperPerson);
+                cms.searchByPrefix(searchValue, wrapperPerson);
                 System.out.println("List of all people: ");
-                cm.getContacts(wrapperPerson);
+                cms.getContacts(wrapperPerson);
             } else {
-                cm.getContacts(wrapperPerson);
+                cms.getContacts(wrapperPerson);
             }
         }
 
-        System.out.println("Do you want to import contacts from xml file?");
+        System.out.println("Do you want to import contacts from csv files? (1 - yes / 0 - no)");
+        String fileApprove = scanner.nextLine().trim();
+
+        if (fileApprove.equals(VALUE_TRUE)) {
+            try {
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.getName().endsWith(".csv")) {
+                            List<Person> peopleFromCsv = cis.csvImport(file.getPath());
+
+                            for (Person person : peopleFromCsv) {
+                                if (!cms.isDuplicate(person)) {
+                                    personList.add(person);
+                                    cms.addContact(person);
+                                } else {
+                                    System.out.println("Contact is duplicate: " + person.getFirstName() + " " + person.getLastName());
+                                }
+                            }
+                        }
+                    }
+                    wrapperPerson.setPersonList(personList);
+                    xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
+                } else {
+                    System.out.println("No files in directory.");
+                }
+
+            } catch (JAXBException | IOException e) {
+                e.getMessage();
+            }
+        }else {
+            System.out.println("Program ends");
+        }
+
+        /*System.out.println("Do you want to import contacts from xml file? (1 - yes / 0 - no)");
         String fileApprove = scanner.nextLine().trim();
 
         if (fileApprove.equals(VALUE_TRUE)) {
@@ -111,7 +120,7 @@ public class Main {
             wrapperPerson.setPersonList(personList);
             xmlConvert.convertObjectToXML(XML_FILE_NAME, wrapperPerson);
         } else {
-            System.out.println("Wrong file path or no data");
+            System.out.println("Program ends");
         }*/
     }
 }

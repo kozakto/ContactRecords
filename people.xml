@@ -2,16 +2,16 @@
 <entities>
     <personList>
         <person>
-            <firstName>Adam</firstName>
-            <lastName>Ondra</lastName>
-            <address>Praha</address>
-            <phoneNumber>123</phoneNumber>
+            <firstName>asd</firstName>
+            <lastName>ds</lastName>
+            <address>asdd</address>
+            <phoneNumber>4</phoneNumber>
         </person>
         <person>
-            <firstName>Tomas</firstName>
-            <lastName>Kozak</lastName>
-            <address>London</address>
-            <phoneNumber>773</phoneNumber>
+            <firstName>1</firstName>
+            <lastName>2</lastName>
+            <address>3</address>
+            <phoneNumber>4</phoneNumber>
         </person>
     </personList>
 </entities>
