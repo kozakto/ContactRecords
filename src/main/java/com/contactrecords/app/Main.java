@@ -1,10 +1,12 @@
 package com.contactrecords.app;
 
 import com.contactrecords.dto.WrapperPerson;
+import com.contactrecords.exceptions.NoValueException;
 import com.contactrecords.model.Person;
 import com.contactrecords.service.CSVImportService;
 import com.contactrecords.service.ContactManagementService;
 import com.contactrecords.service.XMLConverterService;
+import com.contactrecords.service.XmlToExcelExportService;
 import jakarta.xml.bind.JAXBException;
 
 import java.io.File;
@@ -32,13 +34,30 @@ public class Main {
 
         File[] files = directory.listFiles();
 
-        if (files != null) {
+        XMLConverterService converterService = new XMLConverterService();
+        XmlToExcelExportService xmlToExcel = new XmlToExcelExportService();
+
+        try {
+            List<Person> persons = converterService.convertObjectFromXML("people.xml");
+
+            xmlToExcel.convertToExcel(persons, "peopleOutput.xlsx");
+
+
+        } catch (NoValueException e) {
+            System.out.println("Something happened: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+    }
+
+
+        /*if (files != null) {
             for (File file : files) {
                 cis.csvImport(file);
             }
         } else {
             System.out.println("No files in directory.");
-        }
+        }*/
 
         /*while (true) {
             System.out.println("Do you want to add a new contact? (1 - yes/ 0 - no)");
@@ -95,8 +114,8 @@ public class Main {
         }else {
             System.out.println("Wrong file path or no data");
         }*/
-    }
 }
+
 
 
 

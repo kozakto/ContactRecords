@@ -13,5 +13,10 @@
             <address>London</address>
             <phoneNumber>773</phoneNumber>
         </person>
+        <person>
+            <firstName></firstName>
+            <lastName></lastName>
+            <address>d</address>
+        </person>
     </personList>
 </entities>
