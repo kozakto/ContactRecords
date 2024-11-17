@@ -26,7 +26,7 @@ public class Main {
 
         ContactManagementService cm = new ContactManagementService();
         WrapperPerson wrapperPerson = xmlConvert.loadPersonsFromXML(XML_FILE_NAME);
-        List<Person> personList = wrapperPerson.getPersonLists();
+        List<Person> personList = wrapperPerson.getPersonList();
 
         CSVImportService cis = new CSVImportService();
         String directoryPath = "src/main/resources";

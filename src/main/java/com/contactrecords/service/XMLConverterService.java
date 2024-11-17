@@ -35,7 +35,7 @@ public class XMLConverterService {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             WrapperPerson data = (WrapperPerson) jaxbUnmarshaller.unmarshal(xmlFile);
 
-            List<Person> personsXML = data.getPersonLists();
+            List<Person> personsXML = data.getPersonList();
 
             // check if any value is missing in XML
             for (Person person : personsXML) {

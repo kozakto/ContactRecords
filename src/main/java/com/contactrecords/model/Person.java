@@ -17,11 +17,12 @@ public class Person extends Contact {
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String title, String address) {
+    public Person(String firstName, String lastName, String address, String phoneNumber) {
         super(address);
         this.firstName = firstName;
         this.lastName = lastName;
-        //this.title = title;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
         public void createPerson(Scanner scanner) {
 

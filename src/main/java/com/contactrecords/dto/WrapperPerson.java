@@ -16,7 +16,7 @@ public class WrapperPerson {
     @XmlElement(name = "person")
 
 
-    public List<Person> getPersonLists() {
+    public List<Person> getPersonList() {
         return personList;
     }
 

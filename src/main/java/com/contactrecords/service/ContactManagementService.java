@@ -18,23 +18,20 @@ public class ContactManagementService {
 
     public List<Contact> getContacts(WrapperPerson wrapperPerson) throws JAXBException {
 
-        for (Contact contact : wrapperPerson.getPersonLists()) {
-            System.out.println(contact + " ");
-        }
-
+        contacts.addAll(wrapperPerson.getPersonList());
         return contacts;
     }
 
 
     public void addContact(Contact newContact) {
-        if (!isDuplicate(newContact)) {
+        if (newContact != null && !isDuplicate(newContact)) {
             contacts.add(newContact);
         } else {
-            System.out.println("Duplicate contact found. Contact not added.");
+            System.out.println("Duplicate or null contact found. Contact not added.");
         }
     }
 
-    private boolean isDuplicate(Contact newContact) {
+    public boolean isDuplicate(Contact newContact) {
         for (Contact existingContact : contacts) {
             if (newContact instanceof Person && existingContact instanceof Person) {
                 Person newPerson = (Person) newContact;
@@ -49,7 +46,7 @@ public class ContactManagementService {
 
     public void searchByPrefix(String prefix, WrapperPerson wrapperPerson) throws JAXBException {
 
-        for (Contact contact : wrapperPerson.getPersonLists()) {
+        for (Contact contact : wrapperPerson.getPersonList()) {
             if (contact instanceof Person) {
                 Person person = (Person) contact;
                 if (person.getFirstName().startsWith(prefix) || person.getLastName().startsWith(prefix)) {
